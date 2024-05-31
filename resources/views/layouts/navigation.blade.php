@@ -16,14 +16,14 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('modul.index')" :active="request()->routeIs('modul.index')">
-                            {{ __('Modul') }}
-                        </x-nav-link>
                     @else
                         <x-nav-link :href="route('landing-page')" :active="request()->routeIs('landing-page')">
                             {{ __('Landing Page') }}
                         </x-nav-link>
                     @endauth
+                    <x-nav-link :href="route('modul.index')" :active="request()->routeIs('modul.index')">
+                        {{ __('Modul') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -105,6 +105,9 @@
                     {{ __('Landing Page') }}
                 </x-responsive-nav-link>
             @endauth
+            <x-nav-link :href="route('modul.index')" :active="request()->routeIs('modul.index')">
+                {{ __('Modul') }}
+            </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

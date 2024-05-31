@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ModulRequest;
 use App\Models\Modul;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ModulController extends Controller
 {
@@ -24,7 +25,16 @@ class ModulController extends Controller
      */
     public function create()
     {
-        return view('modul.create');
+        return view('modul.form', [
+            'modul' => new Modul(),
+            'page' => [
+                'title' => 'Create Modul',
+                'description' => 'Please fill in the form below to create a new modul.',
+                'method' => 'POST',
+                'url' => route('modul.store'),
+                'button' => 'Create',
+            ]
+        ]);
     }
 
     /**
@@ -65,13 +75,30 @@ class ModulController extends Controller
      */
     public function edit(Modul $modul)
     {
+        Gate::authorize('update',$modul);
+        return view('modul.form', [
+            'modul' => $modul,
+            'page' => [
+                'title' => 'Edit Modul',
+                'description' => 'Edit Modul: ' . $modul->name,
+                'method' => 'PUT',
+                'url' => route('modul.update', $modul),
+                'button' => 'Edit',
+            ]
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Modul $modul)
+    public function update(ModulRequest $request, Modul $modul)
     {
+        $modul->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('modul.index');
     }
 
     /**

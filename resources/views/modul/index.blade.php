@@ -21,23 +21,30 @@
             </div>
             <div class="grid grid-cols-4 gap-4">
                 @foreach ($modul as $item)
-                <x-card class="w-full">
-                    <x-card.header>
-                        <x-card.title>
-                            {{ $item->name }}
-                        </x-card.title>
-                        <x-card.file-type>
-                            {{ $item->file_type }}
-                        </x-card.file-type>
-                        <x-card.description>
-                            {{ $item->description }}
-                        </x-card.description>
+                    <x-card class="w-full">
+                        <x-card.header>
+                            <x-card.title>
+                                {{ $item->name }}
+                            </x-card.title>
+                            <x-card.file-type>
+                                {{ $item->file_type }}
+                            </x-card.file-type>
+                            <x-card.description>
+                                {{ $item->description }}
+                            </x-card.description>
+                            @auth
+                                @if ($item->user_id === auth()->user()->id)
+                                    <a href="{{ route('modul.edit', $item) }}" class="underline text-blue-500">
+                                        {{ __('Edit') }}
+                                    </a>
+                                @endif
+                            @endauth
+                        </x-card.header>
                         <x-card.content>
                             <x-preview :item="$item" />
                         </x-card.content>
-                    </x-card.header>
-                </x-card>
-            @endforeach
+                    </x-card>
+                @endforeach
             </div>
         </div>
     </x-container>

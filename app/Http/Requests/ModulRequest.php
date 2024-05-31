@@ -23,7 +23,7 @@ class ModulRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
+            'file' => $this->method()==='POST' ? 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480' : 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
             'description' => 'required|string|min:3',
         ];
     }
